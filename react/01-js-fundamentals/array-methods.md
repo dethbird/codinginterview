@@ -2,6 +2,16 @@
 
 Array methods are essential for transforming and analyzing data in React components. You’ll use these constantly for rendering lists, filtering results, and updating state.
 
+- [map](#map)
+- [filter](#filter)
+- [reduce](reduce)
+- [find](find)
+- [some / every](#some-every)
+- [includes](#includes)
+- [forEach](#forEach)
+
+
+
 ------
 
 #### `.map()`

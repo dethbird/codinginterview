@@ -4,8 +4,6 @@ Quick reference manual, tips, tricks, code snippets, and example coding question
 
 ## React
 
-- Reference
-
 ## Typescript
 
 ## PHP
