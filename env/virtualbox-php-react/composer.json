@@ -1,0 +1,12 @@
+{
+    "name": "code/virtualbox-php-react",
+    "authors": [
+        {
+            "name": "Rishi Satsangi",
+            "email": "rishi.satsangi@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "4.*"
+    }
+}
