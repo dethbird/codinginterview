@@ -1,5 +1,5 @@
 {
-    "name": "code/virtualbox-php-react",
+    "name": "code/test",
     "authors": [
         {
             "name": "Rishi Satsangi",
@@ -7,6 +7,7 @@
         }
     ],
     "require": {
-        "slim/slim": "4.*"
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.7"
     }
 }
