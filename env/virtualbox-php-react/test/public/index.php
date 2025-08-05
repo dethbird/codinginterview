@@ -17,8 +17,8 @@ $app->add(TwigMiddleware::create($app, $twig));
 $app->get('/', function (Request $request, Response $response, $args) {
     $view = Twig::fromRequest($request);
 
-    return $view->render($response, 'home.html', [
-        'name' => 'Pizza Man',
+    return $view->render($response, 'pages/home.html', [
+        'name' => 'Pizza Manz',
     ]);
 });
 
