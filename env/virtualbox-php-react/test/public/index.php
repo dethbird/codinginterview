@@ -7,6 +7,12 @@ use Slim\Views\TwigMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$manifest = json_decode(
+    file_get_contents(__DIR__ . '/assets/js/.vite/manifest.json'),
+    true
+);
+$mainJs = $manifest['main.jsx']['file'];
+
 $app = AppFactory::create();
 
 // Create Twig
@@ -19,6 +25,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
 
     return $view->render($response, 'pages/home.html', [
         'name' => 'Pizza Manz',
+        'APP_ENV' => getenv('APP_ENV')
     ]);
 });
 

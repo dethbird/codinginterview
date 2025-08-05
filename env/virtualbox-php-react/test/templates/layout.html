@@ -4,6 +4,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <?php if (getenv('APP_ENV') === 'development'): ?>
+            <!-- during dev: load from Vite dev server -->
+            <script type="module" src="http://localhost:3000/@vite/client"></script>
+            <script type="module" src="http://localhost:3000/src-frontend/main.jsx"></script>
+        <?php else: ?>
+            <!-- in production: load built file -->
+            <script type="module" src="/assets/js/<?= $mainJs ?>"></script>
+        <?php endif; ?>
         <title>{% block title %}{% endblock %}</title>
         {% block head %}{% endblock %}
     </head>
