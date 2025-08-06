@@ -6,8 +6,8 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         {% if APP_ENV == 'development' %}
             <!-- during dev: load from Vite dev server -->
-            <script type="module" src="http://localhost:3000/@vite/client"></script>
-            <script type="module" src="http://localhost:3000/main.jsx"></script>
+            <script type="module" src="http://code:3000/@vite/client"></script>
+            <script type="module" src="http://code:3000/main.jsx"></script>
         {% else %}
             <!-- in production: load built file -->
             <script type="module" src="/assets/js/{{ mainJs }}"></script>
@@ -16,9 +16,13 @@
         {% block head %}{% endblock %}
     </head>
 <body>
-    <div id="root">
+    <div id="root"></div>
+    <div id="content">
         {% block content %}{% endblock %}
     </div>
     {% block includes %}{% endblock %}
+    <footer>
+        {{ APP_ENV }}
+    </footer>
 </body>
 </html>
