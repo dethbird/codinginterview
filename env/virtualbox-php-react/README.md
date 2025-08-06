@@ -10,20 +10,32 @@
 
 [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
 
-- Create a new box and use the Ubuntu ISO
+**Steps:**
+
+- Create a new box and use the Ubuntu ISO (8GB, 4 CPU)
+  - <img src=".\assets\images\Screenshot 2025-08-06 134656.png" style="zoom:40%;" />
+
+  - <img src=".\assets\images\Screenshot 2025-08-06 134645.png" style="zoom:40%;" />
 
 - Use bridged adapter and restart the server <- make sure to do this or you can't ssh in
+  - <img src=".\assets\images\Screenshot 2025-08-06 135323.png" style="zoom:40%;" />
 
-### Install SSH
+
+### Update & Install SSH
 
 ```bash
+sudo apt update && sudo apt upgrade -y
 sudo apt install -y openssh-server
 sudo systemctl enable ssh
 sudo systemctl start ssh
 sudo reboot	
 ```
 
-SSH in `ssh code@interview` 
+#### SSH in 
+
+terminal:
+
+`ssh code@wanderlog`
 
 ### update packages
 
@@ -51,18 +63,101 @@ sudo apt install composer
 composer --version
 ```
 
+## Git config
+
+```bash
+git config --global user.name  "Rishi Satsangi"
+git config --global user.email "rishi.satsangi@gmail.com"
+
+```
+
+### ssh key
+
+```bash
+ssh-keygen -t ed25519 -C "rishi.satsangi@gmail.com"
+
+# start the agent & add key
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# copy the public key, then paste into GitHub → Settings → SSH keys
+cat ~/.ssh/id_ed25519.pub
+```
+
+Setup at [https://github.com/settings/keys](https://github.com/settings/keys)
+
+#### check
+
+```bash
+ssh -T git@github.com      # or git@gitlab.com
+```
+
+## Node / React
+
+### Node/React toolchain
+
+```bash
+# Install Node Version Manager
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc         # load nvm into the current shell
+nvm --version            # sanity check
+
+# Install the current LTS (Node 20) and make it default
+nvm install --lts
+nvm alias default lts/*
+
+# Verify
+node -v && npm -v && npx --help	
+```
+
+#### Quick React smoke-test (inside your shared project folder)
+
+```bash
+npm create vite@latest my-app -- --template react-ts
+cd my-app
+npm i
+npm run dev -- --host   # exposed on port 3000 inside the VM
+```
+
+## Checkout this repo
+
+[git@github.com:dethbird/codinginterview.git](git@github.com:dethbird/codinginterview.git)
+
+```
+cd ~
+git clone git@github.com:dethbird/codinginterview.git
+cd codinginterview/env/virtualbox-php-react/
+cp -R test/ wanderlog
+cd wanderlog/
+composer install
+cp .env.shadow .env # env
+cd src-frontend/
+npm i
+```
+
 ## Apache
 
 ```bash
-# 2-a. web server
+# Web server
 sudo apt install -y apache2            # serves :80 inside VM
 sudo systemctl enable --now apache2
 sudo systemctl restart apache2
 sudo reboot
 
-# 2-c. hello-world
+# Hello-world
 echo '<?php phpinfo();' | sudo tee /var/www/html/info.php
 
+```
+
+browse to http://wanderlog/
+
+#### Create symlink:
+
+make the folder in `/var/www`:
+
+```
+cd /var/www
+sudo ln -s /home/code/codinginterview/env/virtualbox-php-react/wanderlog wanderlog
 ```
 
 #### Change docroot:
@@ -70,6 +165,8 @@ echo '<?php phpinfo();' | sudo tee /var/www/html/info.php
 ```bash
 sudo vim /etc/apache2/sites-available/000-default.conf
 ```
+
+change:
 
 ```bash
 <VirtualHost *:80>
@@ -103,29 +200,9 @@ sudo vim /etc/apache2/sites-available/000-default.conf
 </VirtualHost>
 ```
 
-reboot apache
+To: (add directory)
 
-```
-sudo apachectl graceful
-```
-
-### enable rewrite
-
-```
-sudo a2enmod rewrite
-sudo a2enmod actions
-systemctl restart apache
-```
-
-in `/var/www`
-
-```
- sudo ln -s /home/code/test test
-```
-
-in `"/etc/apache2/sites-available/000-default.conf"`
-
-```
+```bash
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
         # the server uses to identify itself. This is used when creating
@@ -137,10 +214,9 @@ in `"/etc/apache2/sites-available/000-default.conf"`
         #ServerName www.example.com
 
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/test/public
+        DocumentRoot /var/www/wanderlog/public
 
-
-        <Directory /var/www/test/public>
+        <Directory /var/www/wanderlog/public>
            Options +FollowSymLinks
            AllowOverride None
            Require all granted
@@ -164,88 +240,63 @@ in `"/etc/apache2/sites-available/000-default.conf"`
 </VirtualHost>
 ```
 
+reboot apache
+
 ```
+sudo apachectl graceful
+```
+
+#### permissions
+
+```
+cd /home/code/codinginterview/env/virtualbox-php-react/wanderlog/public
+chmod 644 index.php
+cd ../
+chmod 775 public
+cd ../
+chmod 775 public
+
 chmod o+x /home          # if /home was 700
 chmod o+x /home/code     # if /home/code was 700
 
-chmod -R go+rX /home/code/test
 ```
 
-## Git config
-
-```bash
-git config --global user.name  "Rishi Satsangi"
-git config --global user.email "rishi.satsangi@gmail.com"
+### enable rewrite
 
 ```
-
-### ssh key
-
-```bash
-ssh-keygen -t ed25519 -C "rishi.satsangi@gmail.com"
-
-# start the agent & add key
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
-# copy the public key, then paste into GitHub → Settings → SSH keys
-cat ~/.ssh/id_ed25519.pub
-```
-
-Setup at [https://github.com/settings/keys](https://github.com/settings/keys)
-
-#### check
-
-```bash
-ssh -T git@github.com      # or git@gitlab.com
-```
-
-## Slim
-
-```bash
-composer require slim/slim:"4.*"
+sudo a2enmod rewrite
+sudo a2enmod actions
+systemctl restart apache
 ```
 
 
 
+## Check Dev frontend build
 
-
-## Node / React
-
-### Node/React toolchain
-
-```bash
-# 1-a. install Node Version Manager
-curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-source ~/.bashrc         # load nvm into the current shell
-nvm --version            # sanity check
-
-# 1-b. install the current LTS (Node 20) and make it default
-nvm install --lts
-nvm alias default lts/*
-
-# 1-c. verify
-node -v && npm -v && npx --help	
+```
+cd /home/code/codinginterview/env/virtualbox-php-react/wanderlog/src-frontend
+npm run dev
 ```
 
-#### Quick React smoke-test (inside your shared project folder)
+browser to http://wanderlog:3000/
 
-```bash
-npm create vite@latest my-app -- --template react-ts
-cd my-app
-npm i
-npm run dev -- --host   # exposed on port 3000 inside the VM
+oops:
+
+```
+Blocked request. This host ("wanderlog") is not allowed.
+To allow this host, add "wanderlog" to `server.allowedHosts` in vite.config.js.
 ```
 
+edit vite.config.js
 
-
-### Check port and browse
-
-```bash
-ip addr show #  192.168.86.178
 ```
-
-shows apache page
+ allowedHosts: [
+  'localhost',        // if you ever use localhost:3000
+  '127.0.0.1',        // if you ever use localhost:3000
+  'wanderlog',             // your VM’s hostname
+  '192.168.86.180',   // or its IP
+],
+```
 
 
 
@@ -257,58 +308,36 @@ sudo systemctl enable --now mysql
 sudo mysql_secure_installation      # set root pwd, drop test DB, etc.
 ```
 
-## Composer 
-
-```bash
-sudo apt install -y php-cli zip unzip curl
-curl -sS https://getcomposer.org/installer -o composer-setup.php
-sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-composer --version
-
-```
-
-## Git
-
-```bash
-# 6-a. install
-sudo apt update
-sudo apt install -y git
-
-# 6-b. verify
-git --version        # expect git version 2.43.x or newer
-```
-
-### config
-
-```bash
-git config --global user.name  "Rishi Satsangi"
-git config --global user.email "rishi.satsangi@gmail.com"
-
-```
-
-### ssh key
-
-```bash
-ssh-keygen -t ed25519 -C "rishi.satsangi@gmail.com"
-
-# start the agent & add key
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
-# copy the public key, then paste into GitHub → Settings → SSH keys
-cat ~/.ssh/id_ed25519.pub
-```
-
-Setup at [https://github.com/settings/keys](https://github.com/settings/keys)
-
-#### check
-
-```bash
-ssh -T git@github.com      # or git@gitlab.com
-
-```
-
 ## Backend Setup
 
-### Slim
+## VSCode SFTP config
+
+```json
+{
+    "name": "My Server",
+    "host": "wanderlog",
+    "protocol": "sftp",
+    "port": 22,
+    "username": "code",
+    "password": "code",
+    "remotePath": "/home/code/codinginterview",
+    "uploadOnSave": true,
+    "useTempFile": false,
+    "openSsh": true
+}
+
+```
+
+
+
+Add custom host to vite.config.js
+
+```
+allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      'wanderlog',        // ← your custom hostname
+      '192.168.86.180',   // ← or your VM’s IP
+    ],
+```
 
