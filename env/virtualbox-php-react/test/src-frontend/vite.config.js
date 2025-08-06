@@ -7,9 +7,10 @@ export default defineConfig({
   base: '/assets/js/',        // where your built files will be served from
   plugins: [react()],
   build: {
-    outDir: resolve(__dirname, '../public'),
+    outDir: resolve(__dirname, '../public/assets/js'),
     emptyOutDir: true,
     manifest: true,           // generates manifest.json for server-side injection
+    assetsDir: '',
     rollupOptions: {
       input: resolve(__dirname, 'main.jsx')
     }

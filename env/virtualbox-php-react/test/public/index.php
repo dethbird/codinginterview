@@ -20,11 +20,11 @@ $twig = Twig::create(__DIR__ . '/../templates', ['cache' => false]);
 // Add Twig-View Middleware
 $app->add(TwigMiddleware::create($app, $twig));
 
-$app->get('/', function (Request $request, Response $response, $args) {
+$app->get('/', function (Request $request, Response $response, $args) use ($mainJs) {
     $view = Twig::fromRequest($request);
 
     return $view->render($response, 'pages/home.html', [
-        'name' => 'Pizza Manz',
+        'mainJs' => $mainJs,
         'APP_ENV' => getenv('APP_ENV')
     ]);
 });
