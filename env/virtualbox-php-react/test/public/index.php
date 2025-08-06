@@ -1,4 +1,5 @@
 <?php
+use Dotenv\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
@@ -6,6 +7,10 @@ use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
+$appEnv = $_ENV['APP_ENV'] ?: 'production';
 
 $manifest = json_decode(
     file_get_contents(__DIR__ . '/assets/js/.vite/manifest.json'),
@@ -20,12 +25,12 @@ $twig = Twig::create(__DIR__ . '/../templates', ['cache' => false]);
 // Add Twig-View Middleware
 $app->add(TwigMiddleware::create($app, $twig));
 
-$app->get('/', function (Request $request, Response $response, $args) use ($mainJs) {
+$app->get('/', function (Request $request, Response $response, $args) use ($mainJs, $appEnv) {
     $view = Twig::fromRequest($request);
 
     return $view->render($response, 'pages/home.html', [
         'mainJs' => $mainJs,
-        'APP_ENV' => getenv('APP_ENV')
+        'APP_ENV' => $appEnv,
     ]);
 });
 
