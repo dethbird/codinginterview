@@ -14,7 +14,6 @@
     ];
 */
 
-/**
 $response = [
     ['id' => 1, 'name' => 'Alice', 'is_active' => true],
     ['id' => 2, 'name' => 'Bob', 'is_active' => false],
@@ -25,5 +24,3 @@ print_r($result);
 
 $result = array_filter($response, fn($user) => $user['is_active'] === true );
 print_r($result);
-*/
-
