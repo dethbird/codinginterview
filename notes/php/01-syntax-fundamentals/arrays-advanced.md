@@ -1,7 +1,3 @@
-Absolutely! Here's a more detailed, docblock-style explanation with richer examples for each array function, designed to be interview-ready and easy to paste into your notes:
-
----
-
 # PHP Arrays: Advanced Functions with Detailed Docblocks
 
 ---
@@ -329,6 +325,3 @@ function exampleArrayWalk(): void {
 | `array_filter` | Yes                | No                 | Value or Value+Key        |
 | `array_walk`   | No                 | Yes                | Value (by reference), Key |
 
----
-
-If you'd like, I can help create interview-style questions or add common pitfalls related to these functions next!
