@@ -8,7 +8,6 @@ php-notes/
 ├── 01-syntax-fundamentals/
 │   ├── [variables.md](01-syntax-fundamentals/variables.md)
 │   ├── [arrays.md](01-syntax-fundamentals/arrays.md)
-
 │   ├── [arrays-advanced.md](01-syntax-fundamentals/arrays-advanced.md)
 │   ├── [strings.md](01-syntax-fundamentals/strings.md)
 │   ├── [loops-conditionals.md](01-syntax-fundamentals/loops-conditionals.md)
