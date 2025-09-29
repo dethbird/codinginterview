@@ -75,3 +75,25 @@ Keep the GraphQL contract. When routing to OpenSearch or Meilisearch, ensure det
 - Cache facets longer (120-300s).  
 - Cap first to a reasonable number (<= 50) and overall window to avoid deep scroll costs.
 - Null vs empty list semantics: null means no filter; empty list means match none.
+
+---
+
+# Questions
+
+- what does declaring `scalar ISO8601` do, is that just the format for date?
+- I think I need to understand `gin`.
+  - ```sql
+      ALTER TABLE articles ADD COLUMN tsv tsvector
+      GENERATED ALWAYS AS ( setweight(to_tsvector('simple', coalesce(title,'')), 'A')
+                          || setweight(to_tsvector('simple', coalesce(body ,'')), 'B')
+                          ) STORED;
+      CREATE INDEX articles_tsv ON articles USING gin(tsv);
+      CREATE INDEX articles_pub ON articles (published_at DESC, id DESC);
+    ```
+- I need more explanation on:
+  - Seek cursor for PUBLISHED_DESC uses key (published_at DESC, id DESC). Cursor is base64 of those keys.
+
+    Facets are computed with the same filters without pagination; cache for 2-5 minutes.
+
+    Snippets use ts_headline in Postgres, or engine highlighting when externalized.
+- Can you explain: "Null vs empty list semantics: null means no filter; empty list means match none."

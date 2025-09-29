@@ -45,3 +45,9 @@ Metrics to watch:
 - Integration chaos tests simulating timeouts and 5xx.  
 - Persisted operation snapshots to prevent error regressions.  
 - SLOs per operation with burn-rate alerts.
+
+# Questions
+
+- What does "Use OpenTelemetry: root span per operation; resolver spans and outbound HTTP/DB spans." - I don't know about OpenTelemetry
+- Can you explain this metric to watch: "p50/p95 latency per operation and hot fields."
+- What is an SLO and what does "SLOs per operation with burn-rate alerts" mean?

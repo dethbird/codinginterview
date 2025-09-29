@@ -167,3 +167,14 @@ PII scrubbing: whitelist-only logging of downstream bodies.
 **Request deduping**: DataLoader in-request; Redis singleflight across requests (50-100 ms window).  
 **Fragment caching**: per-entity server keys align with client normalized cache (`User:{id}`, `StockInfo:{sku}`).  
 **Schema evolution**: add fields **nullable** behind flag; deprecate before removal (60-90 days window).
+
+---
+
+# Questions
+
+- Can you explain: Retries: ≤1 on idempotent GET for 5xx / timeouts / connect reset; exponential backoff + jitter 20-40 ms.
+- I need to know more about Circuit Breakers.
+  - Window: last 20-50 calls; Open if failure-rate ≥ 50% with ≥ 10 requests.
+  - Open for 20s, then half-open with 3 trial requests.
+  - Fallbacks: serve stale cache (Users ≤ 5 min; Inventory ≤ 30 s) or null + typed error.
+- Does "Gateway Hardening" mean validation at the gateway level before it gets to any graphs or subgraphs?

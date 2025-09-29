@@ -222,3 +222,24 @@ CREATE INDEX ON doc_events (doc_id, ts DESC);
 - Idempotency via `{docId}:{clientId}:{seq}`; server assigns monotonically increasing `version`.  
 - Reconnect uses `fromVersion` + snapshot+delta backfill.  
 - Enforce auth on subscribe; apply backpressure both ways; keep cursor updates throttled.
+
+
+# Questions
+
+- I think I still need to understand the architecture. How does this work:
+  - ```graphql
+    input EditInput {
+      docId: ID!
+      clientId: ID!              # stable per tab/session
+      seq: BigInt!               # client seq for idempotency (monotonic per clientId per doc)
+      baseVersion: BigInt!       # optimistic version (OT/CRDT base)
+      op: JSON!                  # OT operation or CRDT delta
+      timestamp: ISO8601
+    }
+    ```
+- I don't uderstand what this is for: `idempotencyKey: String!    # e.g., <docId>:<clientId>:<seq>` 
+- Are we basically registering a series of edits and playing them in order to "update the local version" ?
+  - presence is ephemeral (Redis pub/sub), edits are durable (Kafka or DB) to support replay. 
+  - fromSeq or fromVersion allows resume after reconnect with backfill.
+  
+    

@@ -55,3 +55,10 @@ Invalidation is event-driven where possible; versioned keys avoid large deletes.
 ## Guardrails
 - Feature flags and canaries; SLOs per operation; rollback playbook.
 
+---
+
+# Questions
+
+- how do you do per-field caching?  caching hierarchy (per-field, per-query)
+- what is a "hot query"? "Response cache for authenticated hot queries (TTL 10-60s, stale-while-revalidate)."
+- Can you explain "Tune work_mem for sorts; avoid JSON processing in DB when possible."

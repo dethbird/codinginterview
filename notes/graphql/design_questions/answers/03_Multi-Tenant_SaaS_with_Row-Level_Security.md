@@ -258,3 +258,19 @@ CREATE VIEW notes_audited SECURITY BARRIER AS
 - GraphQL does **coarse** role checks; DB enforces **fine** policy.  
 - Use cursor pagination, soft deletes, and audit logging; add full-text index per org.  
 - Test matrix across roles & orgs; never bypass RLS with superuser connections.
+
+---
+
+# Questions
+
+- Does "Postgres with Row-Level Security" essentially mean adding a tenant field to rows that need security?
+  - What does `ALTER TABLE notes ENABLE ROW LEVEL SECURITY;` do?
+- Do these get set and executed in the db at the gateway level:
+  - ```sql
+    SET LOCAL app.current_org = '<org_uuid>';
+    SET LOCAL app.current_user = '<user_uuid>';
+    SET LOCAL app.current_roles = '{admin,user}';
+    ```
+- Is `@requiresRole` a built-in directive. Can you explain more?
+  - `directive @requiresRole(any: [String!]) on FIELD_DEFINITION`
+- I need more trigger syntax for mutations insert/update/delete logging triggers

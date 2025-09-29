@@ -53,3 +53,10 @@ Benefits: clear ownership, independent deploys, cross-entity references, central
 Rolling schema changes: canary the subgraph, then the gateway.  
 Deprecations: documented in registry with removal dates.  
 Contract tests across teams: validate consumers' persisted operations in CI.
+
+---
+
+# Questions
+
+- What are the tradeoffs: Apollo Router (Rust) or Apollo Gateway (Node). Enable timeouts, retries, circuit breakers, query plan cache.
+- How is `currency` used as a scalar: Scalars: ISO8601, Currency, URL, Email.

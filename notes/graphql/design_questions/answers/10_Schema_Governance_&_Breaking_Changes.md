@@ -50,3 +50,15 @@ Policy to evolve the schema safely as teams grow.
 - Do not change nullability from nullable to non-nullable for existing fields.  
 - Do not repurpose enum semantics; add new values instead.  
 - Avoid QueryV2; add fields and types instead.
+
+---
+
+# Questions
+
+- Is "Policy to evolve the schema safely as teams grow." an agreed upon document by engieers or a policy directive
+- Where do "Provide migration notes and sample queries." live?
+- Is `graphql-schema-linter` an official library?
+- I need more info on:
+    - Apollo or Hive registry for composition and contract checks.
+    - Persisted operation validation against new schema in CI.
+- What does "canary" mean? "Canary by small percent of traffic"

@@ -204,3 +204,26 @@ Optimistic UI:
 
 Rate limiting per user:
 - Token bucket in Redis at rl:user:{id}:mut, capacity 60, refill 1/sec. Over-cap returns 429 with retryAfter in extensions.
+
+
+# Questions
+
+- Can I basically treat `Connection` like "pagination" almost interchangeably?
+  - ```graphql 
+      type PlaylistTrackConnection { edges: [PlaylistTrackEdge!]!, pageInfo: PageInfo!, totalCount: Int }
+    ```
+  - ```graphql 
+      type PlaylistConnection { edges: [PlaylistEdge!]!, pageInfo: PageInfo!, totalCount: Int }
+    ```
+- What is "using `gin`"?
+  - ```sql
+    CREATE INDEX tracks_title_trgm ON tracks USING gin (title gin_trgm_ops);
+    CREATE INDEX tracks_artist_trgm ON tracks USING gin (artist gin_trgm_ops);
+    ```
+- 
+  Can you explain more about how this works: "Cursors encode the sort keys as base64 JSON and use a seek WHERE clause such as WHERE (position, track_id) > (:pos, :id) for ASC or < for DESC."
+
+- What does this mean: "When inserting at an index, use SELECT ... FOR UPDATE SKIP LOCKED on the affected range to prevent race conditions."
+- What is `pg_trgm`: "Start in DB with pg_trgm for tracks.title and tracks.artist."
+- Does this mean "cache on save": "Edge caching for persisted queries."
+- How does a Redis token bucket rate limit? "Per-user rate limiter, e.g., 60 mutations/min (Redis token bucket)."

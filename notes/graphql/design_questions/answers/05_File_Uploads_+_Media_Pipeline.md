@@ -155,3 +155,15 @@ CREATE INDEX ON media (status, updated_at DESC);
 Retryable jobs: idempotency keys, jittered retries, dead-letter queue.
 Deduping identical uploads: checksum unique plus lookup; return existing Media if found.
 Access logs per tenant: record signed URL issuance, ingest CDN/S3 logs for GETs.
+
+---
+
+# Questions
+
+- Again, I think I need to know what a scalar is. the ISO date made sense, but what is `Upload` ?
+  - `scalar ISO8601`
+  - `scalar Upload`
+- It didn't seem like this answer actually covered subscription to media upload / scan / transcode / ready state. I think I need clarity on how that part works. 
+- What does this mean "Redis or SQS; workers idempotent using key media:{id}:stage:{name}. Max retries 3-5 with jitter."
+- What does the checksum consist of? "Lookup by checksum before creating new uploads. Unique(checksum) prevents duplicates during races."
+- What are "idempotency keys"
