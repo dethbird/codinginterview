@@ -10,16 +10,17 @@ You’ll often get a lot of these to gauge depth of understanding. Expect “why
 
 **Examples:**
 
-* What’s the difference between **controlled** and **uncontrolled** components?
-* How does **React’s reconciliation (diffing) algorithm** work?
-* What triggers a **re-render** in React, and how can you avoid unnecessary renders?
-* How does **React.memo** work? What are its pitfalls?
-* Explain **useEffect**’s dependency array and common mistakes.
-* How would you manage **global state**? When do you pick Context vs Redux vs Zustand?
-* What’s the difference between **server-side rendering**, **client-side rendering**, and **hydration**?
-* What’s **suspense** and how does it tie in with **React.lazy**?
-* How would you handle **error boundaries** or async errors in React components?
-* How do you optimize performance in a large React app?
+1. What’s the difference between **controlled** and **uncontrolled** components?
+2. How does **React’s reconciliation (diffing) algorithm** work?
+3.  What triggers a **re-render** in React, and how can you avoid unnecessary renders?
+4. How does **React.memo** work? What are its pitfalls?
+5. Explain **useEffect**’s dependency array and common mistakes.
+6. How would you manage **global state**? When do you pick Context vs Redux vs Zustand?
+7.  What’s the difference between **server-side rendering**, **client-side rendering**, and **hydration**?
+8.  What’s **suspense** and how does it tie in with **React.lazy**?
+9.  How would you handle **error boundaries** or async errors in React components?
+10. How do you optimize performance in a large React app?
+11. How do you handle accessibility and keyboard navigation in React components?
 
 ---
 
@@ -29,11 +30,11 @@ Some interviews involve walking through React-like logic **without a full enviro
 
 **Examples:**
 
-* Given a list of items, how would you render them and handle user input filtering?
-* Implement a custom **hook** like `useFetch` or `usePrevious`.
-* How would you debounce an input field in React?
-* Write a **toggle component** that remembers its state across re-renders.
-* Create a parent and child component where the parent can trigger a child action via **refs or callbacks**.
+1. Given a list of items, how would you render them and handle user input filtering?
+2. Implement a custom **hook** like `useFetch` or `usePrevious`.
+3. How would you debounce an input field in React?
+4. Write a **toggle component** that remembers its state across re-renders.
+5. Create a parent and child component where the parent can trigger a child action via **refs or callbacks**.
 
 *(Tip: keep your answers close to the mental model — describe how you’d approach it, then write code if asked.)*
 
