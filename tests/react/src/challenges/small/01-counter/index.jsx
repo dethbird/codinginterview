@@ -8,9 +8,9 @@ export default function Counter({ step = 1, initial = 0 }) {
   return (
     <div>
       <p data-testid="value">Value: {count}</p>
-      <button onClick={() => setCount(c => c - step)}>-</button>
-      <button onClick={() => setCount(c => c + step)}>+</button>
-      <button onClick={() => setCount(initial)}>Reset</button>
+      <button onClick={() => setCount(c => c - step)} class="button">-</button>
+      <button onClick={() => setCount(c => c + step)} class="button">+</button>
+      <button onClick={() => setCount(initial)} class="button">Reset</button>
     </div>
   )
 }
