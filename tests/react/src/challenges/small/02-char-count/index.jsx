@@ -15,7 +15,7 @@ export default function TextareaWithCount({ max = 200 }) {
         cols={40}
       />
       <div aria-live="polite">
-        <span style={{ color: over ? 'crimson' : 'inherit' }}>
+        <span aria-label="counter" style={{ color: over ? 'crimson' : 'inherit' }}>
           {text.length} / {max}
         </span>
       </div>
