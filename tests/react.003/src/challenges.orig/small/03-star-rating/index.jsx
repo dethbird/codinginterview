@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 
 export default function StarRating({ max = 5, value, onChange }) {

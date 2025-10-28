@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export default function UseCountdownDemo() {
   const [log, setLog] = useState([])
-  const [value, start, stop, reset] = useCountdown({
-    from: 10, intervalMs: 1000,
-    onDone: () => setLog(l => [...l, 'done'])
-  })
+  // TODO: use your hook instead of the placeholder below
+  const [value, start, stop, reset] = [3, () => setLog(l => [...l, 'start']), () => setLog(l => [...l, 'stop']), () => setLog(l => [...l, 'reset'])]
 
   return (
     <div>
@@ -18,32 +16,10 @@ export default function UseCountdownDemo() {
   )
 }
 
+// TODO: export your hook here
 export function useCountdown({ from, intervalMs = 1000, onDone }) {
-  const [value, setValue] = useState(from)
-  const timerRef = useRef(null)
-
-  const clear = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current)
-      timerRef.current = null
-    }
-  }, [])
-
-  const start = useCallback(() => {
-    if (timerRef.current) return
-    timerRef.current = setInterval(() => {
-      setValue(v => {
-        if (v <= 1) {
-          clear(); onDone?.(); return 0
-        }
-        return v - 1
-      })
-    }, intervalMs)
-  }, [clear, intervalMs, onDone])
-
-  const stop = clear
-  const reset = useCallback(() => { clear(); setValue(from) }, [clear, from])
-
-  useEffect(() => clear, [clear])
-  return [value, start, stop, reset]
+  // IMPLEMENT: state for value, a ref for interval id, start/stop/reset handlers,
+  // clear on unmount, and call onDone at 0.
+  // Return: [value, start, stop, reset]
+  return [from, () => {}, () => {}, () => {}]
 }

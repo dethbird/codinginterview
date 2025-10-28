@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', padding: 20, lineHeight: 1.45 }}>
-      <h1>React Interview Practice v3</h1>
+      <h1>React Interview Practice v3.1</h1>
       <label>
         Challenge:&nbsp;
         <select value={selected} onChange={(e) => setSelected(e.target.value)}>
