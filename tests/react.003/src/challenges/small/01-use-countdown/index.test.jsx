@@ -3,13 +3,12 @@ import { vi } from 'vitest'
 import React, { useEffect } from 'react'
 import { useCountdown } from './index.jsx'
 
-it('counts down and stops at 0 (auto-start)', async () => {
+it('counts down and stops at 0 (stable harness)', async () => {
   vi.useFakeTimers()
 
   function Harness() {
     const [v, start] = useCountdown({ from: 3, intervalMs: 100 })
-    // start once on mount; don't depend on `start` identity
-    useEffect(() => { start() }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => { start() }, []) // start once on mount
     return <div data-testid="v">{v}</div>
   }
 
