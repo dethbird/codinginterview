@@ -30,20 +30,22 @@ export default function App() {
   }, [selected])
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', padding: 20, lineHeight: 1.45 }}>
-      <h1>React Interview Practice v2</h1>
+    <div className="container is-max-desktop">
+      <h1 className="title">React Interview Practice v2</h1>
       <label>
         Challenge:&nbsp;
-        <select value={selected} onChange={(e) => setSelected(e.target.value)}>
-          {list.map(key => (
-            <option key={key} value={key}>{prettyName(key)}</option>
-          ))}
-        </select>
+        <div className="select">
+          <select value={selected} onChange={(e) => setSelected(e.target.value)}>
+            {list.map(key => (
+              <option key={key} value={key}>{prettyName(key)}</option>
+            ))}
+          </select>
+        </div>
       </label>
-      <p style={{ opacity: 0.7, marginTop: 6 }}>
+      <p className="pt-4">
         Edit <code>src/challenges/&lt;tier&gt;/&lt;slug&gt;/index.jsx</code> and run tests.
       </p>
-      <div style={{ borderTop: '1px solid #eee', marginTop: 16, paddingTop: 16 }}>
+      <div className="pt-4">
         {Comp ? <Comp /> : <em>Loading challenge…</em>}
       </div>
     </div>
