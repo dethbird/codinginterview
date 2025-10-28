@@ -8,5 +8,10 @@ Same harness as v3 (deterministic). Differences:
 ```bash
 npm i
 npm run dev -- --host 0.0.0.0
-npm run test:watch
+# Local:   http://localhost:5173/
+# Network: http://10.0.2.15:5173/   # (example)
+# Visit the URL in your browser, then select a challenge from the dropdown.
+npm test
+# single test:
+npx vitest watch src/challenges/small/02-char-count/*
 ```
