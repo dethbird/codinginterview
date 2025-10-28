@@ -32,12 +32,12 @@ export default function App() {
   }, [selected])
 
   return (
-    <div class="container is-max-desktop">
-      <section class="section">
-        <h1 class="title">React Interview Practice</h1>
+    <div className="container is-max-desktop">
+      <section className="section">
+        <h1 className="title">React Interview Practice</h1>
         <label>
           Challenge:&nbsp;
-          <div class="select">
+          <div className="select">
             <select value={selected} onChange={(e) => setSelected(e.target.value)}>
               {list.map(key => (
                 <option key={key} value={key}>{prettyName(key)}</option>
@@ -45,13 +45,13 @@ export default function App() {
             </select>
           </div>
         </label>
-      <p class="mt-4">
+      <p className="mt-4">
         Open <code>src/challenges/&lt;tier&gt;/&lt;slug&gt;/index.jsx</code> to edit.
         See the challenge README for requirements.
       </p>
       </section>
-      <section class="section pt-0">
-        <div class="box">
+      <section className="section pt-0">
+        <div className="box">
           {Comp ? <Comp /> : <em>Loading challenge…</em>}
         </div>
       </section>
