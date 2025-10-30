@@ -1,5 +1,5 @@
 
-import { render, screen, act, fireEvent } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { vi } from 'vitest'
 import userEvent from '@testing-library/user-event'
 import AutosaveInput from './index.jsx'
@@ -14,13 +14,15 @@ afterEach(() => {
 
 
 it('saves after a pause (blur as a simple trigger for test)', async () => {
+    const user = userEvent.setup({ delay: 0 })
     render(<AutosaveInput storageKey="k" />)
 
     const input = screen.getByLabelText('text')
-    // simulate typing synchronously to avoid fake-timer/userEvent interaction
-    await act(async () => {
-        fireEvent.change(input, { target: { value: 'hi' } })
-    })
+    // use real timers for userEvent typing to avoid fake-timer/userEvent deadlock
+    vi.useRealTimers()
+    await user.type(input, 'hi')
+    // restore fake timers for the rest of the test environment
+    vi.useFakeTimers()
 
     // For determinism: force a save without timers.
     input.blur()
@@ -28,12 +30,13 @@ it('saves after a pause (blur as a simple trigger for test)', async () => {
 })
 
 it('restores after an unmount', async () => {
+    const user = userEvent.setup({ delay: 0 })
     const { unmount } = render(<AutosaveInput storageKey="k" />)
 
     const input = screen.getByLabelText('text')
-    await act(async () => {
-        fireEvent.change(input, { target: { value: 'hi' } })
-    })
+    vi.useRealTimers()
+    await user.type(input, 'hi')
+    vi.useFakeTimers()
 
     unmount();
     render(<AutosaveInput storageKey="k" />)
@@ -43,13 +46,11 @@ it('restores after an unmount', async () => {
 
 
 it('Debounces localstorage.saveItem', async () => {
-
+    const user = userEvent.setup({ advanceTimers: (ms) => vi.advanceTimersByTimeAsync(ms), delay: 0 })
     render(<AutosaveInput storageKey="k" debounceMs={500} />)
 
     const input = screen.getByLabelText('text')
-    await act(async () => {
-        fireEvent.change(input, { target: { value: 'hi' } })
-    })
+    await user.type(input, 'hi')
 
     // advance timers just before debounce should fire
     await act(async () => { await vi.advanceTimersByTimeAsync(499) })
