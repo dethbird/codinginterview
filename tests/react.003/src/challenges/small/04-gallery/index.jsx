@@ -16,7 +16,7 @@ export default function Gallery({ images = imgs }) {
     }
     const handleKeyDown = (e) => {
         if(!e.key) return;
-        if (e.key === '{ArrowLeft}') {
+        if (e.key === 'ArrowLeft') {
             e.preventDefault();
             setIdx(i => {
                 if (i - 1 < 0) {
@@ -25,7 +25,7 @@ export default function Gallery({ images = imgs }) {
                 return i - 1
             });
         }
-        if (e.key === '{ArrowRight}') {
+        if (e.key === 'ArrowRight') {
             e.preventDefault();
             setIdx(i => {
                 if (i + 1 === images.length) {
