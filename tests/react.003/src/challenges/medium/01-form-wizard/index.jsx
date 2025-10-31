@@ -1,5 +1,5 @@
 
-import React, { useState, useReducer, useEffect, useRef } from 'react'
+import React, { useReducer, useEffect, useRef } from 'react'
 
 const steps = ['Account', 'Profile', 'Confirm']
 
@@ -47,16 +47,11 @@ const validate = (data, step) => {
 }
 
 export default function FormWizard() {
-    // const [step, setStep] = useState(0)
-    // const [data, setData] = useState({ email: '', password: '', name: '', city: '' })
-    // TODO: render steps, validate, next/back, submit
 
     const didMount = useRef(false);
     const [state, dispatch] = useReducer(reducer, initialState);
     const { step, data, errors, submitted } = state;
-
     const isLast = step === 2;
-    
 
     useEffect(() => {
         if (!didMount.current) {
@@ -81,10 +76,9 @@ export default function FormWizard() {
 
     if (submitted) {
         return (
-            <div className="notification is-success">Submitted!</div>
+            <div data-testid="submitConfirm" className="notification is-success">Submitted!</div>
         )
     }
-
 
     return (
         <div>
@@ -96,23 +90,25 @@ export default function FormWizard() {
                     <input 
                         className="input"
                         type="text" 
+                        aria-label="email"
                         value={data.email} 
                         placeholder='joe@email.com' 
                         onChange={(e) => dispatch({ type: 'update', payload: { email: e.target.value } })} 
                     />
                     {errors.email && (
-                        <div className="message is-danger">{ errors.email }</div>
+                        <div data-testid="emailError" className="message is-danger">{ errors.email }</div>
                     )}
                 </label>
                 <label className="label">Password:
                     <input 
                         className="input"
                         type="password" 
+                        aria-label="password"
                         value={data.password} 
                         onChange={(e) => dispatch({ type: 'update', payload: { password: e.target.value } })} 
                     />
                     {errors.password && (
-                        <div className="message is-danger">{ errors.password }</div>
+                        <div data-testid="passwordError" className="message is-danger">{ errors.password }</div>
                     )}
                 </label>
                 </>
@@ -123,35 +119,37 @@ export default function FormWizard() {
                     <input 
                         className="input"
                         type="text" 
+                        aria-label="name"
                         value={data.name} 
                         placeholder='David Coldplay' 
                         onChange={(e) => dispatch({ type: 'update', payload: { name: e.target.value } })} 
                     />
                     {errors.name && (
-                        <div className="message is-danger">{ errors.name }</div>
+                        <div data-testid="nameError" className="message is-danger">{ errors.name }</div>
                     )}
                 </label>
                 <label className="label">City:
                     <input 
                         className="input"
                         type="text" 
+                        aria-label="city"
                         value={data.city} 
                         onChange={(e) => dispatch({ type: 'update', payload: { city: e.target.value } })} 
                     />
                     {errors.city && (
-                        <div className="message is-danger">{ errors.city }</div>
+                        <div data-testid="cityError" className="message is-danger">{ errors.city }</div>
                     )}
                 </label>
                 </>
             )}
             {step === 2 && (
-                <>
+                <div data-testid="confirm">
                 <h4 as="title">Confirm:</h4>
                 <strong>Email: </strong> { data.email }<br />
                 <strong>Password: </strong> XXX<br />
                 <strong>Name: </strong> { data.name }<br />
                 <strong>City: </strong> { data.city }<br />
-                </>
+                </div>
             )}
             
             </div>
