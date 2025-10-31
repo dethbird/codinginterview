@@ -1,5 +1,5 @@
 
-import React, { useState, useReducer } from 'react'
+import React, { useState, useReducer, useEffect, useRef } from 'react'
 
 const steps = ['Account', 'Profile', 'Confirm']
 
@@ -16,7 +16,6 @@ const initialState = {
 }
 
 const reducer = (state, action) => {
-    console.log(action);
     switch (action.type) {
         case 'update':
             return { ...state, data: { ...state.data, ...action.payload } }
@@ -29,13 +28,32 @@ const reducer = (state, action) => {
     }
 }
 
+const validate = (data, step) => {
+    let e = {};
+    if (step === 0) {
+        if (data.email === '') e.email = 'Email is required'
+        if (data.password === '') e.password = 'Password is required'
+    }
+    console.log(e);
+    return e;
+}
+
 export default function FormWizard() {
     // const [step, setStep] = useState(0)
     // const [data, setData] = useState({ email: '', password: '', name: '', city: '' })
     // TODO: render steps, validate, next/back, submit
 
+    const didMount = useRef(false);
     const [state, dispatch] = useReducer(reducer, initialState);
     const { step, data, errors, submitted } = state;
+
+    useEffect(() => {
+        if (!didMount.current) {
+            didMount.current = true;
+            return;
+        }
+        dispatch({type: 'validate', errors: validate(data, step)})
+    }, [data, step]);
 
 
     return (
@@ -85,10 +103,7 @@ export default function FormWizard() {
                 </>
             )}
             {step === 2 && (
-                <section className="section" aria-label={steps[step]}>
-                    <div>step 2</div>
-                </section>
-
+                <div>step 2</div>
             )}
             
             </div>
