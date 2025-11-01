@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 export default function ReorderableList({ initial = ['A', 'B', 'C', 'D'], onChange }) {
     const [items, setItems] = useState(initial)
@@ -24,7 +24,7 @@ export default function ReorderableList({ initial = ['A', 'B', 'C', 'D'], onChan
         <ul>
             {items.map((it, i) => (
                 <li key={it}>
-                    <span className="tag is-large" role="listitem">{it}</span>
+                    <span className="tag is-large">{it}</span>
                     <button 
                         className="button" 
                         aria-label={`up-${it}`} 
