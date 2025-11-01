@@ -16,6 +16,11 @@ const reducer =(state, action) => {
             return {... state, items: [...state.items, newItem(state.items.length, action.payload)]}
         case 'remove':
             return {... state, items: state.items.filter((item) => item.id !== action.payload)}
+        case 'togglePin':
+            // one-liner for reducer
+            return { ...state, items: state.items.map(item => item.id === action.payload ? { ...item, pinned: !item.pinned } : item) }
+        case 'query':
+            return {... state, q: action.payload}
         default:
             return state;
     }
@@ -32,14 +37,16 @@ export default function Notes() {
         setText('')
     }
 
-    const remove = (id) => {
-        // TODO dispatch add
-        console.log(id);
-        dispatch({type: 'remove', payload: id})
-        setText('')
-    }
+    const q = state.q.trim().toLowerCase();
+    const filteredItems = q
+      ? state.items.filter(item => item.text.toLowerCase().includes(q))
+      : state.items;
 
-    const filtered = state.items // TODO apply query + pinned-first ordering
+    const filtered = [
+      ...filteredItems.filter(item => item.pinned),
+      ...filteredItems.filter(item => !item.pinned)
+    ];// TODO apply query + pinned-first ordering
+    
 
     return (
         <div>
@@ -56,15 +63,15 @@ export default function Notes() {
                 className="input" 
                 aria-label="query" 
                 value={state.q} 
-                onChange={e => dispatch({ type: 'query', q: e.target.value })}
+                onChange={e => dispatch({ type: 'query', payload: e.target.value })}
                 placeholder='search ... '
             />
             <ul>
                 {filtered.map(n => (
                     <li key={n.id}>
-                        <button className="button" aria-label={`pin-${n.id}`}>{n.pinned ? 'Unpin' : 'Pin'}</button>
+                        <button className="button" aria-label={`pin-${n.id}`} onClick={() => { dispatch({type: 'togglePin', payload: n.id}) }}>{n.pinned ? 'Unpin' : 'Pin'}</button>
                         <span>{n.text}</span>
-                        <button className="button" aria-label={`del-${n.id}`} onClick={() => { remove(n.id) }}>Delete</button>
+                        <button className="button" aria-label={`del-${n.id}`} onClick={() => { dispatch({type: 'remove', payload: n.id}) }}>Delete</button>
                     </li>
                 ))}
             </ul>
