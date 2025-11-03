@@ -1,0 +1,18 @@
+{
+  "name": "node-for-php-engineers-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Gentle Node.js interview prep for PHP engineers: 6 tasks with explanations and scaffolds.",
+  "scripts": {
+    "start:t1": "node T1-hello-async-await/index.js",
+    "start:t2": "node T2-fs-readfile-cli/index.js sample.txt",
+    "start:t3": "node T3-http-get-json/index.js https://jsonplaceholder.typicode.com/todos/1",
+    "start:t4": "node T4-stream-uppercase/index.js < sample.txt",
+    "start:t5": "node T5-express-mini-api/index.js",
+    "start:t6": "node T6-retry-wrapper/index.js https://httpstat.us/503?sleep=200"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

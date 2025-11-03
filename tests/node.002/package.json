@@ -1,0 +1,20 @@
+{
+  "name": "node-interview-practice-express-v1",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Node.js interview practice (12 challenges) with Express and Jest tests.",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
+    "test:small": "NODE_OPTIONS=--experimental-vm-modules jest __tests__/small --runInBand",
+    "test:medium": "NODE_OPTIONS=--experimental-vm-modules jest __tests__/medium --runInBand",
+    "test:one": "NODE_OPTIONS=--experimental-vm-modules jest -t"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
