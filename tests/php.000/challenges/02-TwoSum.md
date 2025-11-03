@@ -1,0 +1,1 @@
+# 02 — TwoSum (O(n))\nReturn indices [i, j] s.t. `$nums[i] + $nums[j] == $target` or throw if none.\nUse a hash map (value => index).\n

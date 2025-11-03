@@ -1,0 +1,1 @@
+{"version":2,"defects":[],"times":{"App\\Tests\\AnagramTest::testSimple":0.002,"App\\Tests\\AnagramTest::testIgnoresCaseAndSpaces":0}}

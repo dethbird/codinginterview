@@ -1,0 +1,1 @@
+# 01 — Anagram\nImplement `Anagram::isAnagram($a, $b)` ignoring case, spaces, punctuation.\n- Keep only letters/digits\n- Lowercase\n- Sort and compare\nEdge cases: empty strings, unicode letters.\n

@@ -1,0 +1,1 @@
+# 06 — Slugify\nLowercase, replace non-alphanumerics with '-', collapse dashes, trim ends. Consider transliteration for accents (optional for tests).\n

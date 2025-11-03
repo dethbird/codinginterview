@@ -1,0 +1,1 @@
+# 05 — LRU Cache\nFixed-capacity cache. On get/put, mark key as most-recent. Evict least-recent when capacity exceeded.\nSimple approach: track order in an array (end = most recent).\n
