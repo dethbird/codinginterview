@@ -10,7 +10,32 @@ final class BalancedBrackets
      */
     public static function isValid(string $s): bool
     {
-        // TODO: stack-based check
-        throw new \RuntimeException('TODO');
+        $pairs = [')' => '(', '}' => '{', ']' => '['];
+        $stack = [];
+
+        $len = strlen($s);
+        for ($i = 0; $i < $len; $i++) {
+            $ch = $s[$i];
+
+            // opening bracket -> push
+            if ($ch === '(' || $ch === '{' || $ch === '[') {
+                $stack[] = $ch;
+                continue;
+            }
+
+            // closing bracket -> must match top of stack
+            if (isset($pairs[$ch])) {
+                if (empty($stack)) {
+                    return false;
+                }
+                $top = array_pop($stack);
+                if ($top !== $pairs[$ch]) {
+                    return false;
+                }
+            }
+            // ignore other characters
+        }
+
+        return empty($stack);
     }
 }

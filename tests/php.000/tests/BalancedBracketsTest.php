@@ -12,6 +12,7 @@ final class BalancedBracketsTest extends TestCase
     {
         $this->assertTrue(BalancedBrackets::isValid('()[]{}'));
         $this->assertTrue(BalancedBrackets::isValid('{[()()]}'));
+        $this->assertTrue(BalancedBrackets::isValid('{[()()][]}'));
     }
 
     public function testInvalid(): void
