@@ -8,7 +8,8 @@ Time-boxed PHP challenges with **PHPUnit**. Each challenge has a stub in `src/` 
 composer install
 composer test
 # run one test file
-vendor/bin/phpunit tests/01-AnagramTest.php
+cp tests/01-AnagramTest.php tests/AnagramTest.php
+vendor/bin/phpunit tests/AnagramTest.php
 # run by filter
 vendor/bin/phpunit --filter testIgnoresCaseAndSpaces
 ```

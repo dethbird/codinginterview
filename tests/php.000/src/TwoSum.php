@@ -15,7 +15,14 @@ final class TwoSum
      */
     public static function indices(array $nums, int $target): array
     {
-        // TODO: implement with hashmap
-        throw new \RuntimeException('TODO');
+        $seen = [];
+        foreach ($nums as $i => $num) {
+            $complement = $target - $num;
+            if (isset($seen[$complement])) {
+                return ([$seen[$complement], $i]);
+            }
+            $seen[$num] = $i;
+        }
+        throw new \InvalidArgumentException('No indices match target');
     }
 }
