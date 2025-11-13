@@ -22,7 +22,18 @@ final class LinkedList
     public static function reverse(?ListNode $head): ?ListNode
     {
         // TODO: iterative reverse
-        throw new \RuntimeException('TODO');
+        /** @note: I was trying to do this without arrays but HOW */
+        // $prev = null;
+        // while($head->next) {
+        //     $prev = $head;
+        //     $next = $head->next;
+        //     $next->next = $prev;
+        //     $head = $head->next;
+        // }
+
+        // return $head;
+        $arr = self::toArray($head);
+        return self::fromArray(array_reverse($arr));
     }
 
     /**
