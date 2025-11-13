@@ -29,13 +29,45 @@ final class LRUCache
 
     public function get(int $key): ?int
     {
-        // TODO: move key to most-recent, return value or null
-        throw new \RuntimeException('TODO');
+        if (!isset($this->map[$key])) {
+            return null;
+        }
+
+        // move key to most-recent (end of $order)
+        $idx = array_search($key, $this->order, true);
+        if ($idx !== false) {
+            unset($this->order[$idx]);
+            // reindex numeric keys
+            $this->order = array_values($this->order);
+        }
+        $this->order[] = $key;
+
+        return $this->map[$key];
     }
 
     public function put(int $key, int $value): void
     {
-        // TODO: insert/update; evict LRU if over capacity
-        throw new \RuntimeException('TODO');
+        // if key exists, update and mark most-recent
+        if (isset($this->map[$key])) {
+            $this->map[$key] = $value;
+            $idx = array_search($key, $this->order, true);
+            if ($idx !== false) {
+                unset($this->order[$idx]);
+                $this->order = array_values($this->order);
+            }
+            $this->order[] = $key;
+            return;
+        }
+
+        // new key: evict LRU if at capacity
+        if (count($this->order) >= $this->capacity) {
+            $lru = array_shift($this->order); // removes first (least-recent)
+            if ($lru !== null) {
+                unset($this->map[$lru]);
+            }
+        }
+
+        $this->map[$key] = $value;
+        $this->order[] = $key;
     }
 }
