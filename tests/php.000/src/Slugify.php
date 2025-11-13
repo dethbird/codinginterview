@@ -14,7 +14,16 @@ final class Slugify
      */
     public static function slug(string $s): string
     {
-        // TODO: implement
-        throw new \RuntimeException('TODO');
+        if (strlen($s) < 3) {
+            return $s;
+        }
+
+        // replace alphanumeric with '-'
+        $s = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $s);
+        $slug = strtolower($s);
+        $slug = preg_replace('/[^a-zA-Z]/', '-', $slug);
+        $slug = trim($slug, "-");
+        $slug = preg_replace('/-+/', '-', $slug);
+        return $slug;
     }
 }
