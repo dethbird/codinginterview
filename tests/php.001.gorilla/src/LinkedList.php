@@ -30,10 +30,24 @@ final class LinkedList
         //     $next->next = $prev;
         //     $head = $head->next;
         // }
-
         // return $head;
-        $arr = self::toArray($head);
-        return self::fromArray(array_reverse($arr));
+
+        // we basically want to reverse the pointers
+        // loop using $node->next until null and use refs to manage the pointers
+        $prev = null;
+        $current = $head;
+        while ($current !== null) {
+            $next = $current->next;
+            $current->next = $prev;
+            $prev = $current;
+            $current = $next;
+        }
+        return $prev;
+
+
+        // @NOTE this is the brute-force way:
+        // $arr = self::toArray($head);
+        // return self::fromArray(array_reverse($arr));
     }
 
     /**
