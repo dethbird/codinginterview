@@ -16,6 +16,8 @@ final class ListNode
 
 final class LinkedList
 {
+
+    public ?ListNode $head = null;
     /**
      * Reverse a singly linked list. Return new head.
      */
@@ -77,5 +79,14 @@ final class LinkedList
             $head = $head->next;
         }
         return $out;
+    }
+
+    public function pushFront(int $value): void
+    {
+        // @todo: insert at the beginning in O(1)
+        $node = new ListNode($value);
+        $node->next = $this->head;
+        $this->head = $node;
+        
     }
 }
