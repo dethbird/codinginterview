@@ -1,15 +1,15 @@
-let startTiime = null;
+let startTime = null;
 
 
 function startTimer() {
     console.log('start timer');
-    startTiime = Date.now();
+    startTime = Date.now();
 }
 
 function stopTimer() {
     console.log('stop timer');
 
-    let seconds = Math.floor((Date.now() - startTiime) / 1000);
+    let seconds = Math.floor((Date.now() - startTime) / 1000);
     console.log('seconds: ' + seconds, 'color: ' + calculateColor(seconds));
 
     injectSecondsContainer(seconds);
@@ -26,7 +26,6 @@ function injectSecondsContainer(seconds) {
     let el = document.createElement('div');
     el.innerText = `${seconds}`;
     el.style.backgroundColor = calculateColor(seconds);
-    el.style.width = 
     document.getElementById('live').appendChild(el);
 }
 
