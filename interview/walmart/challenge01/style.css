@@ -1,0 +1,8 @@
+#live {
+    max-width: 400px;
+    height: 80px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
