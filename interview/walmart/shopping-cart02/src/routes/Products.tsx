@@ -1,4 +1,4 @@
-import { Product } from "../types";
+import type { Product } from "../types";
 
 const products: Product[] = [
     {
@@ -20,5 +20,18 @@ const products: Product[] = [
 ];
 
 export default function Products() {
-    return <div>Products</div>
+    const productList = products.map((product: Product) => {
+        return (
+            <div key={product.id} className="productItem">
+                <img src={product.imageUrl} alt={product.name} />
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <p>{product.price.toFixed(2)}</p>
+                <p>
+                    <button>Add to cart</button>
+                </p>
+            </div>
+        )
+    })
+    return <div>{productList}</div>
 }

@@ -182,3 +182,8 @@
     border-right-color: var(--border);
   }
 }
+
+
+.productItem {
+  margin-bottom: 25px;
+}

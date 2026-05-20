@@ -1,4 +1,4 @@
-export interface Product {
+export type Product = {
     id: string
     name: string
     price: number
@@ -6,7 +6,7 @@ export interface Product {
     imageUrl: string
 }
 
-export type CartItem {
+export type CartItem = {
     product: Product
     quantity: number
 }
