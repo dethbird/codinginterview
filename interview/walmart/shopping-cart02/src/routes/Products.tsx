@@ -1,4 +1,9 @@
-import type { Product } from "../types";
+import type { CartItem, Product } from "../types";
+import type { Dispatch, SetStateAction } from "react";
+
+type Props = {
+    setCart: Dispatch<SetStateAction<CartItem[]>>
+}
 
 const products: Product[] = [
     {
@@ -19,8 +24,23 @@ const products: Product[] = [
     }
 ];
 
-export default function Products() {
+export default function Products({ setCart }: Props) {
     const productList = products.map((product: Product) => {
+
+        function addToCart(product: Product) {
+            setCart(prev => {
+                const existing = prev.find(item => item.product.id === product.id)
+                if (existing) {
+                    return prev.map(item => 
+                        item.product.id === product.id
+                        ? { ...item, quantity: item.quantity + 1}
+                        : item
+                    )
+                }
+                return [...prev, { product, quantity: 1 }]
+            })
+        }
+
         return (
             <div key={product.id} className="productItem">
                 <img src={product.imageUrl} alt={product.name} />
@@ -28,7 +48,7 @@ export default function Products() {
                 <p>{product.description}</p>
                 <p>{product.price.toFixed(2)}</p>
                 <p>
-                    <button>Add to cart</button>
+                    <button onClick={() => { addToCart(product) }}>Add to cart</button>
                 </p>
             </div>
         )
