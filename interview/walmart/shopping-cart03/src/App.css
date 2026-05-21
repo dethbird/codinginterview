@@ -182,3 +182,11 @@
     border-right-color: var(--border);
   }
 }
+
+#routes {
+  padding: 50px;
+}
+
+.product{
+  margin-bottom: 35px;
+}

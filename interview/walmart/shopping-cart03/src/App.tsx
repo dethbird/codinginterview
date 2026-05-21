@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Nav from './components/Nav'
 
+import Products from './routes/Products'
+import Cart from './routes/Cart'
+
 import './App.css'
 
 function App() {
@@ -19,10 +22,15 @@ function App() {
       <div className="ticks"></div>
 
       <section id="routes">
-        
-        <div>routes</div>
         <Routes>
-          <Route>routes</Route>
+          <Route 
+            path="/"
+            element={ <Products /> }
+          />
+          <Route 
+            path="/cart"
+            element={ <Cart /> }
+          />
         </Routes>
       </section>
 
