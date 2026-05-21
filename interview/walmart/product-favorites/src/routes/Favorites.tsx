@@ -17,9 +17,9 @@ export default function Favorites({ favorites, setFavorites }: Props) {
         })
     }
 
-
-
-    const averageRating = favorites.reduce((sum, fav) => {
+    const averageRating = favorites.length === 0
+    ? 0
+    : favorites.reduce((sum, fav) => {
         return sum + fav.product.rating
     }, 0) / favorites.length
 
@@ -43,7 +43,7 @@ export default function Favorites({ favorites, setFavorites }: Props) {
 
     return (
         <div>
-            <h2>Products</h2>
+            <h2>Favorites</h2>
             <div className='productList'>{productList}</div>
             <hr />
             <p>Average rating: {averageRating.toFixed(2)}</p>
