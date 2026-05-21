@@ -4,3 +4,8 @@ export type Product = {
     description?: string,
     price: number
 }
+
+export type CartItem = {
+    product: Product,
+    quantity: number
+}

@@ -1,6 +1,12 @@
-import type { Product } from '../types'
+import type { Product, CartItem } from '../types'
 
-export default function Products() {
+import type { Dispatch, SetStateAction } from 'react';
+
+type Props = {
+    setCart: Dispatch<SetStateAction<CartItem[]>>
+}
+
+export default function Products({ setCart} : Props) {
 
     /** @todo fetch products from API */
     const products: Product[] = [
@@ -24,13 +30,29 @@ export default function Products() {
         }
     ]
 
+    function addToCart(product: Product) {
+        console.log(product);
+        setCart(prev => {
+            const existing = prev.find(item => item.product.id === product.id)
+            if(existing){
+                const next = prev.map(item => {
+                    return item.product.id === product.id
+                    ? {...item, quantity: item.quantity + 1}
+                    : item
+                })
+                return next
+            }
+            return [...prev, { product, quantity: 1}];
+        })
+    }
+
     const productList = products.map(product => {
         return (
             <div className="product">
                 <h4>{product.name}</h4>
                 <p>{product.description}</p>
                 <p>${product.price.toFixed(2)}</p>
-                <p><button type="button">Add to cart</button></p>
+                <p><button type="button" onClick={()=>addToCart(product)}>Add to cart</button></p>
             </div>
         )
     })

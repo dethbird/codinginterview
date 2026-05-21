@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Nav from './components/Nav'
@@ -5,9 +6,13 @@ import Nav from './components/Nav'
 import Products from './routes/Products'
 import Cart from './routes/Cart'
 
+import type { CartItem } from './types'
+
 import './App.css'
 
 function App() {
+
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   return (
     <BrowserRouter>
@@ -16,20 +21,22 @@ function App() {
       <div className="ticks"></div>
 
       <section>
-        <Nav />
+        <Nav cart={cart} />
       </section>
 
       <div className="ticks"></div>
 
       <section id="routes">
         <Routes>
-          <Route 
+          <Route
             path="/"
-            element={ <Products /> }
+            element={<Products
+              setCart={setCart}
+            />}
           />
-          <Route 
+          <Route
             path="/cart"
-            element={ <Cart /> }
+            element={<Cart cart={cart} />}
           />
         </Routes>
       </section>
