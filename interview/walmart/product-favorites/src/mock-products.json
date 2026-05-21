@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Pizza",
+        "category": "pizza",
+        "price": 1.5,
+        "rating": 8.8
+    },
+    {
+        "id": 2,
+        "name": "Taco",
+        "category": "mexican",
+        "price": 2.5,
+        "rating": 7.4
+    },
+    {
+        "id": 3,
+        "name": "Enchilada",
+        "category": "mexican",
+        "price": 3.5,
+        "rating": 5.8
+    },
+    {
+        "id": 4,
+        "name": "Butterfinger",
+        "category": "candy",
+        "price": 1.5,
+        "rating": 3.2
+    },
+    {
+        "id": 5,
+        "name": "Beer",
+        "category": "alcohol",
+        "price": 4.5,
+        "rating": 9.3
+    }
+]
