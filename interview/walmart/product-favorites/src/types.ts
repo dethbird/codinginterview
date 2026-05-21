@@ -6,6 +6,6 @@ export type Product = {
     rating: number
 }
 
-export type UserFavorite = {
+export type Favorite = {
     product: Product
 }

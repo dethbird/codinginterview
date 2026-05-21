@@ -1,12 +1,18 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
 import Products from './routes/Products';
 import Favorites from './routes/Favorites';
 
+import type { Favorite } from './types'
 
 import './App.css'
 
 function App() {
+
+  const [ favorites, setFavorites ] = useState<Favorite[]>([]);
+
+  console.log('favorites', favorites);
 
   return (
     <BrowserRouter>
@@ -16,7 +22,7 @@ function App() {
       <nav>
         <Link to="/">Products</Link>
         {" | "}
-        <Link to="/favorites">Favorites: (0)</Link>
+        <Link to="/favorites">Favorites: ({favorites.length})</Link>
       </nav>
       <div className="ticks"></div>
       
@@ -24,7 +30,9 @@ function App() {
       <Routes>
         <Route 
           path="/"
-          element={<Products />}
+          element={<Products 
+            setFavorites={setFavorites}
+          />}
         />
         <Route 
           path="/favorites"
