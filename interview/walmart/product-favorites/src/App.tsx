@@ -1,4 +1,8 @@
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+
+import Products from './routes/Products';
+import Favorites from './routes/Favorites';
+
 
 import './App.css'
 
@@ -10,14 +14,23 @@ function App() {
         <h1>Favorite Products Manager</h1>
       </section>
       <nav>
-        Products
+        <Link to="/">Products</Link>
         {" | "}
-        Favorites: (0)
+        <Link to="/favorites">Favorites: (0)</Link>
       </nav>
       <div className="ticks"></div>
-
-      <section id="product_list">
-        products
+      
+      <section id="routes">
+      <Routes>
+        <Route 
+          path="/"
+          element={<Products />}
+        />
+        <Route 
+          path="/favorites"
+          element={<Favorites />}
+        />
+      </Routes>
       </section>
 
       <div className="ticks"></div>
