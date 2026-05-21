@@ -12,8 +12,6 @@ function App() {
 
   const [ favorites, setFavorites ] = useState<Favorite[]>([]);
 
-  console.log('favorites', favorites);
-
   return (
     <BrowserRouter>
       <section id="header">
@@ -36,7 +34,10 @@ function App() {
         />
         <Route 
           path="/favorites"
-          element={<Favorites />}
+          element={<Favorites 
+            favorites={ favorites }
+            setFavorites={setFavorites}
+          />}
         />
       </Routes>
       </section>
