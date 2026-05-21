@@ -1,3 +1,5 @@
+import Nav from './components/Nav'
+
 import './App.css'
 
 function App() {
@@ -9,7 +11,7 @@ function App() {
       <div className="ticks"></div>
 
       <section>
-        nav
+        <Nav />
       </section>
 
       <section id="routes">
