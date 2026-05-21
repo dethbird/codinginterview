@@ -10,7 +10,7 @@ window.onload = function(){
         game.style.color = '#FFF';
         game.innerHTML = 'Wait ... ';
 
-        const changeTime = 2000 + Math.random() * 300;
+        const changeTime = 2000 + Math.random() * 3000;
 
         startTime = Date.now();
 
@@ -24,8 +24,9 @@ window.onload = function(){
         if (status !== 'idle'){
             reactionTime = Date.now() - startTime;
             if (status === 'switched') {
-                game.backgroundColor = 'blue';
+                game.style.backgroundColor = 'blue';
                 game.innerHTML = 'Reaction time: ' + reactionTime + 'ms';
+                status = 'idle';
             } else if (status === 'started') {
                 clearTimeout(gameTimeout);
                 game.innerHTML = 'Too soon!';
